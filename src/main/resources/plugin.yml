@@ -1,0 +1,17 @@
+name: SoulBoundSMP
+version: 1.0.0
+main: com.stormai.plugin.SoulBoundSMP
+api-version: 1.21
+description: Collect souls, gain powers, and survive as a weakened spirit.
+author: StormAI
+commands:
+  souls:
+    description: Manage souls and abilities.
+    usage: /<command> [subcommand]
+permissions:
+  soulboundsmp.*:
+    description: Gives full access.
+    default: op
+  soulboundsmp.add:
+    description: Allows adding souls.
+    default: op
