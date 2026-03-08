@@ -1,5 +1,8 @@
 package com.stormai.plugin;
 
+import com.stormai.plugin.manager.SoulManager;
+import com.stormai.plugin.manager.CooldownManager;
+import com.stormai.plugin.ability.AbilityHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

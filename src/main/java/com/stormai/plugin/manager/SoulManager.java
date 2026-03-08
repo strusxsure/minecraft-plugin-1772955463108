@@ -71,4 +71,9 @@ public class SoulManager {
     public Map<UUID, Integer> getAllSouls() {
         return new HashMap<>(soulsMap);
     }
+
+    /** Checks if the player has enough souls to spend */
+    public boolean canSpendSouls(Player p, int amount) {
+        return getSoulCount(p) >= amount;
+    }
 }

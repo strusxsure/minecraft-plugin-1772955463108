@@ -3,8 +3,7 @@ package com.stormai.plugin.ability;
 import com.stormai.plugin.SoulBoundSMP;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.attribute.AttributedStat;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,27 +40,26 @@ public class AbilityHandler {
 
     private void applyStrength(Player p, int seconds) {
         p.addAttachment(SoulBoundSMP.getInstance(), "tempStrength", true);
-        p.getAttribute(AttributeInstance.AttributeType.GENERIC_ATTACK_DAMAGE).setBaseValue(p.getAttribute(AttributeInstance.AttributeType.GENERIC_ATTACK_DAMAGE).getValue() + 3);
+        p.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(p.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue() + 3);
         scheduleTask(p.getUniqueId(), () -> {
-            p.getAttribute(AttributeInstance.AttributeType.GENERIC_ATTACK_DAMAGE).setBaseValue(p.getAttribute(AttributeInstance.AttributeType.GENERIC_ATTACK_DAMAGE).getValue() - 3);
+            p.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(p.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getValue() - 3);
             p.removeAttachment(SoulBoundSMP.getInstance());
         }, seconds);
     }
 
     private void applySpeed(Player p, int seconds) {
         p.addAttachment(SoulBoundSMP.getInstance(), "tempSpeed", true);
-        p.getAttribute(AttributeInstance.AttributeType.GENERIC_MOVEMENT_SPEED).setBaseValue(p.getAttribute(AttributeInstance.AttributeType.GENERIC_MOVEMENT_SPEED).getValue() + 0.2);
+        p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() + 0.2);
         scheduleTask(p.getUniqueId(), () -> {
-            p.getAttribute(AttributeInstance.AttributeType.GENERIC_MOVEMENT_SPEED).setBaseValue(p.getAttribute(AttributeInstance.AttributeType.GENERIC_MOVEMENT_SPEED).getValue() - 0.2);
+            p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() - 0.2);
             p.removeAttachment(SoulBoundSMP.getInstance());
         }, seconds);
     }
 
     private void applyExtraHealth(Player p, int seconds) {
-        AttributeInstance attr = p.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH);
+        org.bukkit.attribute.AttributeInstance attr = p.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH);
         if (attr != null) {
             double base = attr.getBaseValue();
-            double current = attr.getValue();
             double newMax = base + 2; // each extra heart = +2 health
             attr.setBaseValue(newMax);
             // Optionally heal the player to full
@@ -69,7 +67,7 @@ public class AbilityHandler {
         }
         scheduleTask(p.getUniqueId(), () -> {
             // revert health max
-            AttributeInstance rev = p.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH);
+            org.bukkit.attribute.AttributeInstance rev = p.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH);
             if (rev != null) rev.setBaseValue(rev.getBaseValue() - 2);
             // optionally restore health if needed
         }, seconds);
